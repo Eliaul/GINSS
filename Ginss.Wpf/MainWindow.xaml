@@ -1,0 +1,118 @@
+﻿<Window
+    x:Class="Ginss.Wpf.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ginss.Wpf"
+    xmlns:localView="clr-namespace:Ginss.Wpf.View"
+    xmlns:localViewModel="clr-namespace:Ginss.Wpf.ViewModel"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sync="http://schemas.syncfusion.com/wpf"
+    xmlns:syncskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    Title="MainWindow"
+    Width="1000"
+    Height="600"
+    mc:Ignorable="d">
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <localView:MenuView />
+
+        <sync:DockingManager
+            x:Name="dockingManager"
+            Grid.Row="1"
+            syncskin:SfSkinManager.Theme="{syncskin:SkinManager ThemeName=MaterialLight}">
+
+            <ContentControl
+                x:Name="propertyDocking"
+                sync:DockingManager.CanClose="False"
+                sync:DockingManager.DesiredWidthInDockedMode="200"
+                sync:DockingManager.Header="属性"
+                sync:DockingManager.SideInDockedMode="Right">
+                <sync:PropertyGrid
+                    PropertyExpandMode="NestedMode"
+                    SelectedObject="{Binding SelectedFileProperty}"
+                    UpdateSourceMode="ReturnOrLostFocus" />
+            </ContentControl>
+
+            <sync:DocumentContainer
+                x:Name="container"
+                sync:DockingManager.CanClose="False"
+                sync:DockingManager.Header="绘图"
+                sync:DockingManager.NoHeader="False"
+                sync:DockingManager.State="Document"
+                ItemsSource="{Binding Charts}" />
+
+            <ContentControl
+                x:Name="outputDocking"
+                sync:DockingManager.CanClose="False"
+                sync:DockingManager.CanMaximize="True"
+                sync:DockingManager.DesiredHeightInDockedMode="200"
+                sync:DockingManager.Header="输出"
+                sync:DockingManager.SideInDockedMode="Bottom">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+                    <ListBox x:Name="outputBox" ItemsSource="{Binding Logs}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="200" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImgSource}" />
+                                    <TextBox
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        BorderThickness="0"
+                                        FontFamily="Ubuntu Mono,思源黑体"
+                                        FontSize="16"
+                                        IsReadOnly="True"
+                                        Text="{Binding LogTime}" />
+                                    <TextBox
+                                        Grid.Column="2"
+                                        BorderThickness="0"
+                                        FontFamily="Ubuntu Mono,思源黑体"
+                                        FontSize="16"
+                                        IsReadOnly="True"
+                                        Text="{Binding Description}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <sync:SfLinearProgressBar
+                        x:Name="progressBar"
+                        Grid.Row="1"
+                        Margin="1"
+                        Progress="{Binding Progress}" />
+                </Grid>
+
+            </ContentControl>
+
+            <ContentControl
+                x:Name="calculateDocking"
+                sync:DockingManager.CanClose="False"
+                sync:DockingManager.Header="解算"
+                sync:DockingManager.SideInDockedMode="Tabbed"
+                sync:DockingManager.TargetNameInDockedMode="propertyDocking">
+                <Grid>
+                    <sync:PropertyGrid
+                        DescriptionPanelVisibility="Visible"
+                        IsEnabled="{Binding IsEnabled}"
+                        PropertyExpandMode="NestedMode"
+                        SelectedObject="{Binding SelectedCalProperty}"
+                        UpdateSourceMode="ReturnOrLostFocus" />
+                </Grid>
+            </ContentControl>
+
+        </sync:DockingManager>
+    </Grid>
+</Window>

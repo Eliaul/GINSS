@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icon\alert.ico" />
+    <None Remove="Icon\info.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="ScottPlot" Version="4.1.64" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="21.2.8" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="21.2.9" />
+    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="21.2.8" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="21.2.8" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="21.2.8" />
+    <PackageReference Include="Syncfusion.Themes.MaterialLight.WPF" Version="21.2.8" />
+    <PackageReference Include="Syncfusion.Themes.MaterialLightBlue.WPF" Version="21.2.8" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="21.2.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ginss.Core\Ginss.Core.csproj" />
+    <ProjectReference Include="..\NaviTools\NaviTools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon\alert.ico" />
+    <Resource Include="Icon\info.ico" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+﻿<UserControl
+    x:Class="Ginss.Wpf.View.MenuView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncf="http://schemas.syncfusion.com/wpf"
+    xmlns:syncfskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    mc:Ignorable="d">
+
+    <Grid>
+        <syncf:MenuAdv
+            x:Name="menu"
+            Height="25"
+            HorizontalAlignment="Stretch"
+            syncfskin:SfSkinManager.Theme="{syncfskin:SkinManager ThemeName=MaterialLight}">
+
+            <syncf:MenuItemAdv Header="文件">
+                <syncf:MenuItemAdv
+                    Command="{Binding FileDialogCommand}"
+                    Header="读取"
+                    Icon="{materialDesign:PackIcon Kind=FileOutline}" />
+
+            </syncf:MenuItemAdv>
+
+            <syncf:MenuItemAdv Header="处理" IsEnabled="{Binding IsEnabled}">
+                <syncf:MenuItemAdv
+                    Command="{Binding InsProcessCommand}"
+                    Header="INS"
+                    Icon="{materialDesign:PackIcon Kind=CubeSend}" />
+                <syncf:MenuItemAdv
+                    Command="{Binding GinsProcessCommand}"
+                    Header="GNSS/INS"
+                    Icon="{materialDesign:PackIcon Kind=RotateOrbit}" />
+            </syncf:MenuItemAdv>
+
+            <syncf:MenuItemAdv Header="图像">
+                <syncf:MenuItemAdv
+                    Command="{Binding DrawCommand}"
+                    Header="绘图"
+                    Icon="{materialDesign:PackIcon Kind=ChartBoxOutline}" />
+            </syncf:MenuItemAdv>
+        </syncf:MenuAdv>
+
+
+    </Grid>
+</UserControl>
