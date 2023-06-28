@@ -14,7 +14,7 @@ namespace NaviTools
     {
         public readonly static UtcTime OriginalTimePoint = new(1980, 1, 6, 0, 0, 0, TimeSpan.Zero);
 
-        public readonly TimeSpan GpsTimeSpan;
+        public readonly TimeSpan GpsTimeSpan { get; init; }
 
         public readonly UtcTime UtcTimePoint
         {

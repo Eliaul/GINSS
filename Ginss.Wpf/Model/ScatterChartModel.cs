@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace Ginss.Wpf.Model
 {
-    public partial class ScatterChartModel : ObservableObject
+    public class ScatterChartModel
     {
-        [ObservableProperty]
-        private double eastCoordinate;
+        public double EastCoordinate { get; set; }
 
-        [ObservableProperty]
-        private double northCoordinate;
+        public double NorthCoordinate { get; set; }
     }
 }

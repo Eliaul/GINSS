@@ -21,8 +21,6 @@ namespace Ginss.Wpf.Service
 
         public static StaticAlignment? staticAlignment;
 
-        public static StateOfEpoch state;
-
         public static ImuData? imuDataPre;
 
         public static InsMechanization? insMech;
@@ -32,6 +30,8 @@ namespace Ginss.Wpf.Service
         public static double progress;
 
         //public static List<StateOfEpoch> states;
+
+        public static int count;
 
         public static void Initialize()
         {
@@ -46,13 +46,13 @@ namespace Ginss.Wpf.Service
         {
             Initialize();
             ImuData.SamplingRate = CalculateService.imuSamplingRate;
-            fileReader = new(CalculateService.filePath, CalculateService.startTime, CalculateService.endTime);
+            fileReader = new(CalculateService.ascFilePath, CalculateService.startTime, CalculateService.endTime);
             //if (CalculateService.filePath != null && new System.IO.FileInfo(CalculateService.filePath).Exists)
             //else
             //    return;
             staticAlignment = new(CalculateService.staticTimeSpan, CalculateService.initialPosition);
             int idx = 0;
-            int count = fileReader.Read().DistinctBy(imuData => imuData.Time).Count();
+            count = fileReader.Read().DistinctBy(imuData => imuData.Time).Count();
             foreach (var imuDataCur in fileReader.Read().DistinctBy(imuData => imuData.Time))
             {
                 EulerAngle? eulerAngle;

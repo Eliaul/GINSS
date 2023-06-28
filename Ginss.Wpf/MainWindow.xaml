@@ -1,4 +1,4 @@
-﻿<Window
+﻿<sync:ChromelessWindow
     x:Class="Ginss.Wpf.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,9 +10,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sync="http://schemas.syncfusion.com/wpf"
     xmlns:syncskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-    Title="MainWindow"
+    Title="松组合处理程序"
     Width="1000"
     Height="600"
+    syncskin:SfSkinManager.Theme="{syncskin:SkinManager ThemeName=MaterialLight}"
     mc:Ignorable="d">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
@@ -33,10 +34,12 @@
                 sync:DockingManager.DesiredWidthInDockedMode="200"
                 sync:DockingManager.Header="属性"
                 sync:DockingManager.SideInDockedMode="Right">
-                <sync:PropertyGrid
-                    PropertyExpandMode="NestedMode"
-                    SelectedObject="{Binding SelectedFileProperty}"
-                    UpdateSourceMode="ReturnOrLostFocus" />
+                <Grid>
+                    <sync:PropertyGrid
+                        PropertyExpandMode="NestedMode"
+                        SelectedObject="{Binding SelectedFileProperty, Mode=OneWay}"
+                        UpdateSourceMode="ReturnOrLostFocus" />
+                </Grid>
             </ContentControl>
 
             <sync:DocumentContainer
@@ -45,7 +48,8 @@
                 sync:DockingManager.Header="绘图"
                 sync:DockingManager.NoHeader="False"
                 sync:DockingManager.State="Document"
-                ItemsSource="{Binding Charts}" />
+                ItemsSource="{Binding Charts}"
+                SwitchMode="Immediate" />
 
             <ContentControl
                 x:Name="outputDocking"
@@ -59,7 +63,7 @@
                         <RowDefinition />
                         <RowDefinition Height="10" />
                     </Grid.RowDefinitions>
-                    <ListBox x:Name="outputBox" ItemsSource="{Binding Logs}">
+                    <ListBox x:Name="outputBox" ItemsSource="{Binding Logs, Mode=OneWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -68,7 +72,7 @@
                                         <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="{Binding ImgSource}" />
+                                    <materialDesign:PackIcon Foreground="{Binding Brush, Mode=OneWay}" Kind="{Binding IconKind, Mode=OneWay}" />
                                     <TextBox
                                         Grid.Column="1"
                                         HorizontalAlignment="Center"
@@ -76,14 +80,14 @@
                                         FontFamily="Ubuntu Mono,思源黑体"
                                         FontSize="16"
                                         IsReadOnly="True"
-                                        Text="{Binding LogTime}" />
+                                        Text="{Binding LogTime, Mode=OneWay}" />
                                     <TextBox
                                         Grid.Column="2"
                                         BorderThickness="0"
                                         FontFamily="Ubuntu Mono,思源黑体"
                                         FontSize="16"
                                         IsReadOnly="True"
-                                        Text="{Binding Description}" />
+                                        Text="{Binding Description, Mode=OneWay}" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -92,7 +96,7 @@
                         x:Name="progressBar"
                         Grid.Row="1"
                         Margin="1"
-                        Progress="{Binding Progress}" />
+                        Progress="{Binding Progress, Mode=OneWay}" />
                 </Grid>
 
             </ContentControl>
@@ -106,13 +110,21 @@
                 <Grid>
                     <sync:PropertyGrid
                         DescriptionPanelVisibility="Visible"
-                        IsEnabled="{Binding IsEnabled}"
+                        IsEnabled="{Binding IsEnabled, Mode=OneWay}"
                         PropertyExpandMode="NestedMode"
                         SelectedObject="{Binding SelectedCalProperty}"
                         UpdateSourceMode="ReturnOrLostFocus" />
+
                 </Grid>
             </ContentControl>
 
+            <ContentControl
+                sync:DockingManager.CanClose="False"
+                sync:DockingManager.Header="信息"
+                sync:DockingManager.SideInDockedMode="Tabbed"
+                sync:DockingManager.TargetNameInDockedMode="propertyDocking">
+                <sync:PropertyGrid DescriptionPanelVisibility="Visible" SelectedObject="{Binding SelectedInfoProperty, Mode=OneWay}" />
+            </ContentControl>
         </sync:DockingManager>
     </Grid>
-</Window>
+</sync:ChromelessWindow>

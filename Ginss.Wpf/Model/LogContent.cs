@@ -15,10 +15,9 @@ namespace Ginss.Wpf.Model
 
         public string LogTime { get; set; }
 
-        public string ImgName { get; set; }
+        public PackIconKind IconKind { get; set; } = PackIconKind.Information;
 
-        public ImageSource ImgSource =>
-            new BitmapImage(new Uri("Icon/" + ImgName, UriKind.Relative));
+        public Brush Brush { get; set; } = Brushes.LimeGreen;
 
     }
 }

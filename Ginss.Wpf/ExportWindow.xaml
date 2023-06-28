@@ -1,0 +1,52 @@
+﻿<sync:ChromelessWindow
+    x:Class="Ginss.Wpf.ExportWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="urn:gong-wpf-dragdrop"
+    xmlns:local="clr-namespace:Ginss.Wpf"
+    xmlns:localViewModel="clr-namespace:Ginss.Wpf.ViewModel"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sync="http://schemas.syncfusion.com/wpf"
+    xmlns:syncskin="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="ExportWindow"
+    Width="600"
+    Height="400"
+    syncskin:SfSkinManager.Theme="{syncskin:SkinManager ThemeName=MaterialLight}"
+    mc:Ignorable="d">
+    <Grid syncskin:SfSkinManager.Theme="{syncskin:SkinManager ThemeName=MaterialLight}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <GroupBox
+            Margin="10"
+            FontFamily="Asap,微软雅黑"
+            FontSize="16"
+            Header="Items"
+            Style="{StaticResource MaterialDesignGroupBox}">
+            <ListBox
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                FontSize="14"
+                ItemsSource="{Binding CanExportItems}" />
+        </GroupBox>
+        <GroupBox
+            Grid.Column="1"
+            Margin="10"
+            materialDesign:ColorZoneAssist.Mode="SecondaryMid"
+            FontFamily="Asap,微软雅黑"
+            FontSize="16"
+            Header="Export"
+            Style="{StaticResource MaterialDesignGroupBox}">
+            <ListBox
+                x:Name="exportedBox"
+                dd:DragDrop.IsDragSource="True"
+                dd:DragDrop.IsDropTarget="True"
+                FontSize="14"
+                ItemsSource="{Binding ExprotedItems}" />
+        </GroupBox>
+    </Grid>
+</sync:ChromelessWindow>

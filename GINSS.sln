@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ginss.Core", "Ginss.Core\Gi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NaviTools", "NaviTools\NaviTools.csproj", "{475569DC-84B6-4864-A241-3A09890985C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ginss.Wpf", "Ginss.Wpf\Ginss.Wpf.csproj", "{BE784990-2A3D-4F24-8015-5F95E3015EA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ginss.Wpf", "Ginss.Wpf\Ginss.Wpf.csproj", "{BE784990-2A3D-4F24-8015-5F95E3015EA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +15,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{31150D4E-ABD4-487F-B76B-A73C2A2D1970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31150D4E-ABD4-487F-B76B-A73C2A2D1970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31150D4E-ABD4-487F-B76B-A73C2A2D1970}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{31150D4E-ABD4-487F-B76B-A73C2A2D1970}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{31150D4E-ABD4-487F-B76B-A73C2A2D1970}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31150D4E-ABD4-487F-B76B-A73C2A2D1970}.Release|Any CPU.Build.0 = Release|Any CPU
 		{475569DC-84B6-4864-A241-3A09890985C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

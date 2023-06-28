@@ -143,6 +143,6 @@ namespace NaviTools.Geodesy
             + Z.ToString(format, formatProvider);
 
         public override string ToString()
-            => string.Format("{0:F10}", this);
+            => ToString("F10", null, ',');
     }
 }

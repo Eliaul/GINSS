@@ -10,7 +10,7 @@ namespace Ginss.Wpf.Service
 {
     public static class CalculateService
     {
-        public static string filePath;
+        public static string ascFilePath;
 
         public static GpsTime? startTime;
 
@@ -21,5 +21,10 @@ namespace Ginss.Wpf.Service
         public static TimeSpan staticTimeSpan;
 
         public static double imuSamplingRate;
+
+        static CalculateService()
+        {
+            initialPosition.EllipsoidType = Ellipsoid.WGS84;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using NaviTools.MathTools;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,13 @@ namespace NaviTools.Geodesy
     public record struct GeodeticCoordinate :
         IEquatable<GeodeticCoordinate>, IFormattable
     {
+        public Angle Latitude { get; set; }
 
-        public Angle Latitude;
+        public Angle Longitude { get; set; }
 
-        public Angle Longitude;
+        public double Height { get; set; }
 
-        public double Height;
-
-        public Ellipsoid EllipsoidType;
+        public Ellipsoid EllipsoidType { get; set; }
 
         /// <summary>
         /// Radius of curvature in prime vertical(R_N).
@@ -57,7 +57,7 @@ namespace NaviTools.Geodesy
                 throw new ArgumentOutOfRangeException(nameof(longitude), "Longitude must be within the range of -180 to 180 degrees.");
             Latitude = latitude;
             Longitude = longitude;
-            Height = height;
+            Height = height;    
             EllipsoidType = ellipsoid;
         }
 
@@ -151,7 +151,7 @@ namespace NaviTools.Geodesy
         }
 
         public override string ToString()
-            => string.Format("{0:deg}", this);
+            => ToString("degval", null, ',');
 
     }
 }

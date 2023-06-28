@@ -38,20 +38,23 @@ namespace Ginss.Core.GINSS
 
     public partial class LooseCombination
     {
-        public InsMechanization InsMech;
+        public InsMechanization InsMech { get; set; }
 
-        public DiscreteKalmanFilter KalmanFilter;
+        public DiscreteKalmanFilter KalmanFilter { get; set; }
 
-        public ImuError ImuErrorVec;
+        public ImuError ImuErrorVec
+        {
+            get; set;
+        }
 
-        public StateOfEpoch? StateCur;
+        public StateOfEpoch? StateCur { get; set; }
 
         /// <summary>
         /// The power spectral density matrix of the system.
         /// </summary>
-        public MatD Psd;
+        public MatD Psd { get; set; }
 
-        public ZuptWindow? Zupt;
+        public ZuptWindow? Zupt { get; set; }
 
         public readonly VecD Tgb;
 
@@ -346,9 +349,9 @@ namespace Ginss.Core.GINSS
                 -1
             });
             var tmp = DRInv * PositionError;
-            StateCur.GeodeticPosition.Latitude -= new Angle(tmp[0]);
-            StateCur.GeodeticPosition.Longitude -= new Angle(tmp[1]);
-            StateCur.GeodeticPosition.Height -= tmp[2];
+            StateCur.geodeticPosition.Latitude -= new Angle(tmp[0]);
+            StateCur.geodeticPosition.Longitude -= new Angle(tmp[1]);
+            StateCur.geodeticPosition.Height -= tmp[2];
             StateCur.Attitude = Quaternion.FromRotationVector(AttitudeError) * StateCur.Attitude;
             StateCur.Velocity -= VelocityError;
             ImuErrorVec += new ImuError(GyroBiasError, GyroScaleError, AcceBiasError, AcceScaleError);

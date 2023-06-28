@@ -7,7 +7,8 @@ using NaviTools;
 using NaviTools.Attitude;
 using NaviTools.Geodesy;
 using System.Diagnostics;
-using NaviTools.Filter.Kalman;
+
+Console.WriteLine(double.Parse("1e-3"));
 
 AscFileReader ascReader = new("D:\\Tencent\\398943960\\FileRecv\\3-2开阔环境-Decompress.ASC");
 GnssFileReader gnssReader = new("D:\\Tencent\\398943960\\FileRecv\\wide.pos");
@@ -35,7 +36,7 @@ ImuErrorModel.Accelerometer acceErrorModel = new(
 ImuErrorModel errorModel = new(gyroErrorModel, acceErrorModel, "XW-GI6615");
 Vector<double> antennaLever = Vector<double>.Build.DenseOfArray(new double[]
 {
-    0.2350, -0.1000, 0.8900
+    -0.1000,0.2350, -0.8900
 });
 
 
@@ -45,7 +46,7 @@ sw.Start();
 ImuData.SamplingRate = 0.01;
 ImuData? imuDataPre = null;
 
-GeodeticCoordinate iniPos = new(30.5278108404, 114.3557126448, 22.312, Ellipsoid.WGS84, AngleUnit.deg);
+GeodeticCoordinate iniPos = new(30.5282960229, 114.3557510106, 23.141, Ellipsoid.WGS84, AngleUnit.deg);
 
 StaticAlignment staticAlignment = new(new(0, 5, 0), iniPos);
 
@@ -82,10 +83,14 @@ foreach (var imuDataCur in ascReader.Read().DistinctBy(imuData => imuData.Time))
         foreach (var imuMid in imuList)
         {
             lcProcessor.ForwardProcess(imuMid, gnssIterator, antennaLever);
-            //writer.Write(lcProcessor.StateCur!.ToString("degval", null, ',') + "\r\n");
+            var cov1 = lcProcessor.KalmanFilter.Cov;
+            var time1 = lcProcessor.StateCur.GpsSeconds;
+            writer.Write($"{time1:F3},{Math.Sqrt(cov1[0, 0]):F4},{Math.Sqrt(cov1[1,1]):F4},{Math.Sqrt(cov1[2,2]):F4}\r\n");
         }
         lcProcessor.ForwardProcess(imuDataCur, gnssIterator, antennaLever);
-        //writer.Write(lcProcessor.StateCur!.ToString("degval", null, ',') + "\r\n");
+        var cov = lcProcessor.KalmanFilter.Cov;
+        var time = lcProcessor.StateCur.GpsSeconds;
+        writer.Write($"{time:F3},{Math.Sqrt(cov[0, 0]):F4},{Math.Sqrt(cov[1, 1]):F4},{Math.Sqrt(cov[2, 2]):F4}\r\n");
     }
 
     imuDataPre = imuDataCur;
@@ -93,4 +98,3 @@ foreach (var imuDataCur in ascReader.Read().DistinctBy(imuData => imuData.Time))
 stateCur = lcProcessor!.StateCur;
 sw.Stop();
 Console.WriteLine(sw.Elapsed.TotalSeconds);
-

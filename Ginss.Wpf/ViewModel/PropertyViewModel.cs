@@ -26,10 +26,11 @@ namespace Ginss.Wpf.ViewModel
 
         private void ReceiveFilePath(object recipient, PropertyChangedMessage<string> message)
         {
-            filePath = message.NewValue;
+            var filePath = message.NewValue;
             FileInfo info = new(message.NewValue);
             if (info.Extension.ToUpperInvariant() == ".ASC")
             {
+                CalculateService.ascFilePath = filePath;
                 var it = File.ReadLines(message.NewValue);
                 var firstLine = it.First();
                 var lastLine = it.Last();
@@ -52,10 +53,14 @@ namespace Ginss.Wpf.ViewModel
                     }
                 };
             }
+            else if (info.Extension.ToUpperInvariant() == ".POS")
+            {
+                GinssService.gnssReader = new(filePath);
+            }
             Logs.Add(new LogContent()
             {
-                ImgName = "info.ico",
-                Description = $"文件\"{filePath}\"读取成功.",
+
+                Description = $"文件\"{info.Name}\"读取成功.",
                 LogTime = DateTime.Now.ToLocalTime().ToString()
             });
         }

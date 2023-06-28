@@ -4,11 +4,11 @@ namespace NaviTools.Attitude
 {
     public record struct EulerAngle : IFormattable, IEquatable<EulerAngle>
     {
-        public Angle Roll;
+        public Angle Roll { get; set; }
 
-        public Angle Pitch;
+        public Angle Pitch { get; set; }
 
-        public Angle Yaw;
+        public Angle Yaw { get; set; }
 
         public readonly static EulerAngle Zero = new(0, 0, 0);
 
@@ -95,7 +95,7 @@ namespace NaviTools.Attitude
                 + Yaw.ToString(format, formatProvider);
 
         public override string ToString()
-            => string.Format("{0:deg}", this);
+            => ToString("degval", null, ',');
 
         public override int GetHashCode()
         {

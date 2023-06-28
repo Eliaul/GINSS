@@ -14,13 +14,13 @@ namespace NaviTools.Attitude
         System.Numerics.ISubtractionOperators<Quaternion, Quaternion, Quaternion>,
         IEquatable<Quaternion>, IFormattable
     {
-        public double W;
+        public double W { get; set; }
 
-        public double X;
+        public double X { get; set; }
 
-        public double Y;
+        public double Y { get; set; }
 
-        public double Z;
+        public double Z { get; set; }
 
         public Vector<double> Imaginary
         {
@@ -142,6 +142,9 @@ namespace NaviTools.Attitude
                 {2 * (q1 * q3 - q0 * q2), 2 * (q2 * q3 + q0 * q1), q0 * q0 - q1 * q1 - q2 * q2 + q3 * q3 }
             });
         }
+
+        public override string ToString()
+        => ToString("F10", null, ',');
 
         public string ToString(string? format, IFormatProvider? formatProvider)
         {

@@ -4,6 +4,7 @@ using NaviTools.Attitude;
 using NaviTools.Geodesy;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
@@ -13,24 +14,35 @@ namespace Ginss.Core
 {
     public record class StateOfEpoch : IFormattable
     {
-        public GpsTime Time;
+        public GpsTime Time { get; set; }
 
-        public Quaternion Attitude;
+        public Quaternion Attitude { get; set; }
 
-        public GeodeticCoordinate GeodeticPosition;
+        public GeodeticCoordinate geodeticPosition;
 
-        public Vector<double> Velocity;
+        public GeodeticCoordinate GeodeticPosition
+        {
+            get => geodeticPosition;
+            set => geodeticPosition = value;
+        }
 
-        public Vector<double> Omegaenn;
+        public Vector<double> Velocity { get; set; }
 
-        public Vector<double> Omegaien;
+        public Vector<double> Omegaenn { get; set; }
 
-        public Vector<double> Gravity;
+        public Vector<double> Omegaien { get; set; }
+
+        public Vector<double> Gravity { get; set; }
 
         public EulerAngle EulerAngleAtt => EulerAngle.FromQuaternion(Attitude);
 
         public CartesianCoordinate CartesianPosition => CartesianCoordinate.FromGeodeticCoordinate(GeodeticPosition);
 
+        public double GpsSeconds => Time.SecOfWeeks;
+
+        public double GpsWeeks => Time.Weeks;
+
+        public DateTime LocalTime => Time.LocalTimePoint.LocalDateTime;
 
         public StateOfEpoch(GpsTime time, Quaternion attitude, GeodeticCoordinate geodeticCoordinate, Vector<double> velocity)
         {

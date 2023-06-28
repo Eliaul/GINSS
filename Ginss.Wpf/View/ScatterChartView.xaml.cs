@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,14 @@ namespace Ginss.Wpf.View
         public ScatterChartView()
         {
             InitializeComponent();
+        }
+
+        private void chart_SelectionChanged(object sender, Syncfusion.UI.Xaml.Charts.ChartSelectionChangedEventArgs e)
+        {
+            if (e.SelectedIndex != -1)
+            {
+                WeakReferenceMessenger.Default.Send<ValueChangedMessage<int>, string>(new ValueChangedMessage<int>(e.SelectedIndex), "Chart selectedIndex");
+            }
         }
     }
 }

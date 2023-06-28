@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,7 @@ using System.Windows;
 
 namespace Ginss.Wpf.ViewModel
 {
+
     public partial class MenuViewModel : ObservableObject
     {
         private string filePath = "";
@@ -28,7 +30,6 @@ namespace Ginss.Wpf.ViewModel
                 if (SetProperty(ref filePath, value))
                 {
                     WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<string>(this, nameof(FilePath), "", value), nameof(FilePath));
-                    CalculateService.filePath = value;
                 }
             }
         }
@@ -42,11 +43,12 @@ namespace Ginss.Wpf.ViewModel
             OpenFileDialog openFileDialog = new()
             {
                 InitialDirectory = "C:\\Desktop",
-                Filter = "ASC文件|*.ASC",
+                Filter = "ASC文件|*.ASC|POS文件|*.pos",
                 RestoreDirectory = true
             };
             openFileDialog.ShowDialog();
-            FilePath = openFileDialog.FileName;
+            if (!string.IsNullOrEmpty(openFileDialog.FileName))
+                FilePath = openFileDialog.FileName;
         }
 
         [ObservableProperty]
@@ -62,13 +64,20 @@ namespace Ginss.Wpf.ViewModel
         [RelayCommand]
         public void GinsProcess()
         {
-            //WeakReferenceMessenger.Default.Send("GNSS/INS process", "Data process");
+            WeakReferenceMessenger.Default.Send("GNSS/INS process", "Data process");
         }
 
         [RelayCommand]
         public void Draw()
         {
-            WeakReferenceMessenger.Default.Send("Data", "Data visualize");
+            //WeakReferenceMessenger.Default.Send("Data", "Data visualize");
+            WeakReferenceMessenger.Default.Send(new PropertyChangedMessage<ObservableCollection<string>>(this, "", new(), SelectedItems), "Data visualize");
+        }
+
+        [RelayCommand]
+        public void Export()
+        {
+            WeakReferenceMessenger.Default.Send("Export", "Data export");
         }
 
         public MenuViewModel()
@@ -77,11 +86,39 @@ namespace Ginss.Wpf.ViewModel
             {
                 IsEnabled = m.NewValue;
             });
+
+            SelectedItems = new();
         }
 
-        private void ReceiveProcessState(object recipient, PropertyChangedMessage<bool> msg)
+        private ObservableCollection<string> chartType = new()
         {
-            //IsProcessEnabled = !msg.NewValue;
+            "轨迹图",
+            "大地坐标时序图",
+            "直角坐标系时序图",
+            "欧拉角时序图",
+            "速度时序图"
+        };
+
+        public ObservableCollection<string> ChartType
+        {
+            get => chartType;
+            set
+            {
+                chartType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<string> selectedItems;
+
+        public ObservableCollection<string> SelectedItems
+        {
+            get => selectedItems;
+            set
+            {
+                selectedItems = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

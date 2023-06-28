@@ -19,21 +19,21 @@ namespace NaviTools.Geodesy
 
         #region "reference ellipsoids"
 
-        public static readonly Ellipsoid WGS84 = new()
+        public static Ellipsoid WGS84 { get; } = new()
         { 
             SemiMajorAxis = 6378137.0,
             Flatting = 1.0 / 298.2572235629972,
             AngularVelocity = 7.292115e-5 
         };
 
-        public static readonly Ellipsoid GRS80 = new()
+        public static Ellipsoid GRS80 { get; } = new()
         {
             SemiMajorAxis = 6378137.0,
             Flatting = 1.0 / 298.2572221008827,
             AngularVelocity = 7.292115e-5 
         };
 
-        public static readonly Ellipsoid CGCS2000 = new() 
+        public static Ellipsoid CGCS2000 { get; } = new() 
         {
             SemiMajorAxis = 6378137.0,
             Flatting = 1.0 / 298.2572221010042,

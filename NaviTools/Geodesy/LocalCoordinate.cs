@@ -8,27 +8,27 @@ namespace NaviTools.Geodesy
 {
     public record struct LocalCoordinate : IEquatable<LocalCoordinate>, IFormattable
     {
-        public double Earth;
+        public double East;
 
         public double North;
 
         public double Up;
 
-        public LocalCoordinate(double earth, double north, double up)
+        public LocalCoordinate(double east, double north, double up)
         {
-            Earth = earth;
+            East = east;
             North = north;
             Up = up;
         }
 
-        public static LocalCoordinate FromNED(double north, double earth, double down)
+        public static LocalCoordinate FromNED(double north, double east, double down)
         {
-            return new(earth, north, -down);
+            return new(east, north, -down);
         }
 
-        public void Deconstruct(out double earth, out double north, out double up)
+        public void Deconstruct(out double east, out double north, out double up)
         {
-            earth = Earth;
+            east = East;
             north = North;
             up = Up;
         }
@@ -51,7 +51,7 @@ namespace NaviTools.Geodesy
         }
 
         public string ToString(string? format, IFormatProvider? formatProvider)
-            => Earth.ToString(format, formatProvider) + " " +
+            => East.ToString(format, formatProvider) + " " +
                 North.ToString(format, formatProvider) + " " +
                 Up.ToString(format, formatProvider);
 

@@ -8,14 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icon\alert.ico" />
-    <None Remove="Icon\info.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+    <PackageReference Include="MaterialDesignColors" Version="2.1.4" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
-    <PackageReference Include="ScottPlot" Version="4.1.64" />
+    <PackageReference Include="Panuon.WPF.UI" Version="1.1.11.12" />
     <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="21.2.8" />
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="21.2.9" />
     <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="21.2.8" />
@@ -29,11 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Ginss.Core\Ginss.Core.csproj" />
     <ProjectReference Include="..\NaviTools\NaviTools.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Icon\alert.ico" />
-    <Resource Include="Icon\info.ico" />
   </ItemGroup>
 
 </Project>

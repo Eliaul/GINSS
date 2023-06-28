@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Ginss.Wpf.Model;
+using Ginss.Wpf.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Ginss.Wpf.ViewModel
         [ObservableProperty]
         public object selectedCalProperty;
 
-        public bool CanProcess
+        public bool CanInsProcess
         {
             get
             {
@@ -24,9 +25,17 @@ namespace Ginss.Wpf.ViewModel
                     && !string.IsNullOrEmpty(tmp.InitialPosition.Latitude)
                     && !string.IsNullOrEmpty(tmp.InitialPosition.Height)
                     && !string.IsNullOrEmpty(tmp.StaticTimeSpan)
-                    && !string.IsNullOrEmpty(tmp.ImuSamplingRate);
+                    && !string.IsNullOrEmpty(tmp.ImuSamplingRate)
+                    && IsFilePathExist;
             }
         }
 
+        public bool CanGinssProcess
+        {
+            get
+            {
+                return CanInsProcess && GinssService.gnssReader != null && GinssService.antennaLever != null;
+            }
+        }
     }
 }

@@ -10,39 +10,97 @@
     mc:Ignorable="d">
 
     <Grid>
-        <syncf:MenuAdv
-            x:Name="menu"
-            Height="25"
-            HorizontalAlignment="Stretch"
-            syncfskin:SfSkinManager.Theme="{syncfskin:SkinManager ThemeName=MaterialLight}">
+        <Rectangle Fill="White" />
+        <StackPanel syncfskin:SfSkinManager.Theme="{syncfskin:SkinManager ThemeName=MaterialLight}">
+            <syncf:MenuAdv
+                x:Name="menu"
+                Height="25"
+                HorizontalAlignment="Stretch"
+                IsEnabled="{Binding IsEnabled, Mode=OneWay}">
 
-            <syncf:MenuItemAdv Header="文件">
-                <syncf:MenuItemAdv
-                    Command="{Binding FileDialogCommand}"
-                    Header="读取"
-                    Icon="{materialDesign:PackIcon Kind=FileOutline}" />
+                <syncf:MenuItemAdv Header="文件">
+                    <syncf:MenuItemAdv
+                        x:Name="readMenuItem"
+                        Command="{Binding FileDialogCommand}"
+                        Header="读取"
+                        Icon="{materialDesign:PackIcon Kind=FileOutline}" />
 
-            </syncf:MenuItemAdv>
+                </syncf:MenuItemAdv>
 
-            <syncf:MenuItemAdv Header="处理" IsEnabled="{Binding IsEnabled}">
-                <syncf:MenuItemAdv
-                    Command="{Binding InsProcessCommand}"
-                    Header="INS"
-                    Icon="{materialDesign:PackIcon Kind=CubeSend}" />
-                <syncf:MenuItemAdv
-                    Command="{Binding GinsProcessCommand}"
-                    Header="GNSS/INS"
-                    Icon="{materialDesign:PackIcon Kind=RotateOrbit}" />
-            </syncf:MenuItemAdv>
+                <syncf:MenuItemAdv Header="处理">
+                    <syncf:MenuItemAdv
+                        x:Name="insMenuItem"
+                        Command="{Binding InsProcessCommand}"
+                        Header="INS"
+                        Icon="{materialDesign:PackIcon Kind=CubeSend}" />
+                    <syncf:MenuItemAdv
+                        x:Name="ginssMenuItem"
+                        Command="{Binding GinsProcessCommand}"
+                        Header="GNSS/INS"
+                        Icon="{materialDesign:PackIcon Kind=RotateOrbit}" />
+                </syncf:MenuItemAdv>
 
-            <syncf:MenuItemAdv Header="图像">
-                <syncf:MenuItemAdv
-                    Command="{Binding DrawCommand}"
-                    Header="绘图"
-                    Icon="{materialDesign:PackIcon Kind=ChartBoxOutline}" />
-            </syncf:MenuItemAdv>
-        </syncf:MenuAdv>
+                <syncf:MenuItemAdv Header="图像">
+                    <syncf:MenuItemAdv
+                        x:Name="drawMenuItem"
+                        Command="{Binding DrawCommand}"
+                        Header="绘图"
+                        Icon="{materialDesign:PackIcon Kind=ChartBoxOutline}" />
+                </syncf:MenuItemAdv>
 
-
+                <syncf:MenuItemAdv Header="导出">
+                    <syncf:MenuItemAdv
+                        x:Name="exportMenuItem"
+                        Command="{Binding ExportCommand}"
+                        Header="导出"
+                        Icon="{materialDesign:PackIcon Kind=Export}" />
+                </syncf:MenuItemAdv>
+            </syncf:MenuAdv>
+            <ToolBarTray IsEnabled="{Binding ElementName=menu, Path=IsEnabled}">
+                <ToolBar MinHeight="35" Style="{StaticResource MaterialDesignToolBar}">
+                    <Button
+                        Padding="5"
+                        Command="{Binding ElementName=readMenuItem, Path=Command}"
+                        Content="{materialDesign:PackIcon Kind=FileOutline,
+                                                          Size=20}"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Separator />
+                    <Button
+                        Padding="5"
+                        Command="{Binding ElementName=insMenuItem, Path=Command}"
+                        Content="{materialDesign:PackIcon Kind=CubeSend,
+                                                          Size=25}"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Button
+                        Padding="5"
+                        Command="{Binding ElementName=ginssMenuItem, Path=Command}"
+                        Content="{materialDesign:PackIcon Kind=RotateOrbit,
+                                                          Size=20}"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                    <Separator />
+                    <Button
+                        Padding="5"
+                        Command="{Binding ElementName=drawMenuItem, Path=Command}"
+                        Content="{materialDesign:PackIcon Kind=ChartBoxOutline,
+                                                          Size=20}"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                    <syncf:ComboBoxAdv
+                        Width="150"
+                        Margin="5"
+                        AllowMultiSelect="True"
+                        AllowSelectAll="True"
+                        EnableOKCancel="True"
+                        ItemsSource="{Binding ChartType}"
+                        SelectedItems="{Binding SelectedItems, Mode=TwoWay}" />
+                    <Separator />
+                    <Button
+                        Padding="5"
+                        Command="{Binding ElementName=exportMenuItem, Path=Command}"
+                        Content="{materialDesign:PackIcon Kind=Export,
+                                                          Size=25}"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                </ToolBar>
+            </ToolBarTray>
+        </StackPanel>
     </Grid>
 </UserControl>
